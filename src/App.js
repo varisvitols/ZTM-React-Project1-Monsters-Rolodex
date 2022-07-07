@@ -9,6 +9,7 @@ import SearchBox from './components/search-box/search-box.component';
 const App = () => {
   console.log('render');
   
+  const [title, setTitle] = useState('');
   const [searchField, setSearchField] = useState(''); // [value, setValue]
   const [monsters, setMonsters] = useState([]);
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
@@ -32,14 +33,25 @@ const App = () => {
     setSearchField(searchFieldString);
   }
 
+  const onTitleChange = (event) => {
+    const titleString = event.target.value.toLocaleLowerCase();
+    setTitle(titleString);
+  }
+
   return (
     <div className="App">
-      <h1>Mosters Rolodex</h1>
+      <h1>{title}</h1>
       
       <SearchBox
         className='monsters-search-box'
         onChangeHandler={onSearchChange}
         placeholder='search monsters'
+      />
+      <br />
+      <SearchBox
+        className='monsters-search-box'
+        onChangeHandler={onTitleChange}
+        placeholder='enter title'
       />
 
       <CardList monsters={filteredMonsters} />
